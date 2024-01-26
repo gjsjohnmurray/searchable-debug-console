@@ -3,7 +3,8 @@
   "displayName": "Searchable Debug Console",
   "description": "Replicates debug console output into an editor, where it can be searched",
   "version": "0.0.1",
-  "publisher": "gjsjohnmurray",
+  "publisher": "georgejames",
+  "icon": "media/extension-icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/gjsjohnmurray/searchable-debug-console"
