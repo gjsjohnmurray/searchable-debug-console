@@ -1,9 +1,11 @@
 import * as vscode from 'vscode';
-import { DebugTracker } from './debugTracker';
+import { EditorDebugTracker } from './editorDebugTracker';
+import { TerminalDebugTracker } from './terminalDebugTracker';
 
 export class DebugTrackerFactory implements vscode.DebugAdapterTrackerFactory {
 
   createDebugAdapterTracker(session: vscode.DebugSession): vscode.ProviderResult<vscode.DebugAdapterTracker> {
-    return new DebugTracker(session);
+    //return new EditorDebugTracker(session);
+    return new TerminalDebugTracker(session);
   }
 }
