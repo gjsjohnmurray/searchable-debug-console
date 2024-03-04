@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { mapTerminalDebugTrackers } from './terminalDebugTracker';
 
 export interface Link extends vscode.TerminalLink {
-    source: string;
+    sourcePath: string;
     line: number;
     column: number;
 }
@@ -21,6 +21,6 @@ export class LinkProvider implements vscode.TerminalLinkProvider<Link> {
 
     }
     handleTerminalLink(link: Link): vscode.ProviderResult<void> {
-        vscode.commands.executeCommand('vscode.openWith', vscode.Uri.file(link.source), 'default', { preview: true, selection: new vscode.Range(link.line - 1, 0, link.line - 1, link.column) });
+        vscode.commands.executeCommand('vscode.openWith', vscode.Uri.file(link.sourcePath), 'default', { preview: true, selection: new vscode.Range(link.line - 1, 0, link.line - 1, link.column) });
     }
 }
