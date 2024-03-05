@@ -105,7 +105,7 @@ export class TerminalDebugTracker implements vscode.DebugAdapterTracker {
             // Prepend a header to the initial message
             messages.unshift(`Debug session ${this.session.name} (${this.session.type}) [${new Date().toLocaleString()}]`);
             // Requeue messages and return, giving time for the terminal to be ready.
-            // The initial messages will be written when timeout  happens after the next incoming message
+            // The initial messages will be written when timeout happens after the next incoming message
             this.queuedMessages = [ ...messages ];
             return;
           }
@@ -120,7 +120,7 @@ export class TerminalDebugTracker implements vscode.DebugAdapterTracker {
             this.queuedMessages = [ ...messages, ...this.queuedMessages ];
           }
         },
-        500
+        50
         );
       }
       //console.log(`**${outcome}: (${message.body.category}) from ${this.session.type} session ${this.session.name}: ${message.body.output} [${message.body.source.name}:${message.body.line}:${message.body.column}]`);
@@ -139,20 +139,23 @@ export class TerminalDebugTracker implements vscode.DebugAdapterTracker {
   }
 
   onWillStopSession(): void {
-    this.writeMessages([`Stopping session ${this.session.name}`]);
+    this.writeMessages([...this.queuedMessages, `Stopping session ${this.session.name}`]);
+    this.queuedMessages = [];
     TerminalDebugTracker.sessionCount--;
     //console.log(`**Stopping session ${this.session.name}`);
   }
 
   onError(error: Error): void {
     if (error.message !== 'connection closed') {
-      this.writeMessages([`Erroring session ${this.session.name}: error.message=${error.message}`]);
+      this.writeMessages([...this.queuedMessages, `Erroring session ${this.session.name}: error.message=${error.message}`]);
+      this.queuedMessages = [];
     }
     //console.log(`**Erroring session ${this.session.name}: error.message=${error.message}`);
   }
 
   onExit(code: number | undefined, signal: string | undefined): void {
-    this.writeMessages([`Exiting session ${this.session.name}: code=${code}, signal=${signal}`]);
+    this.writeMessages([...this.queuedMessages, `Exiting session ${this.session.name}: code=${code}, signal=${signal}`]);
+    this.queuedMessages = [];
     //console.log(`**Exiting session ${this.session.name}: code=${code}, signal=${signal}`);
   }
 }
