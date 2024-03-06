@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-export class DebugTracker implements vscode.DebugAdapterTracker {
+export class EditorDebugTracker implements vscode.DebugAdapterTracker {
 
   private session: vscode.DebugSession;
   private document: vscode.TextDocument | undefined;
@@ -19,8 +19,8 @@ export class DebugTracker implements vscode.DebugAdapterTracker {
         return `** [${new Date().toLocaleString()}] - ${message}`;
       }
       const output = message.body?.output.replace(/\n$/, '');
-      return `${output} [${message.body.source.name}:${message.body.line}:${message.body.column} (${message.body.category})]`
-    }
+      return `${output} [${message.body.source.name}:${message.body.line}:${message.body.column} (${message.body.category})]`;
+    };
     
     if (!this.editor) {
       return false;
@@ -52,7 +52,7 @@ export class DebugTracker implements vscode.DebugAdapterTracker {
             //console.log(`Appended ${messages.length} messages OK`)
           }
           else {
-            console.log(`Failed to append ${messages.length} messages`)
+            console.log(`Failed to append ${messages.length} messages`);
             this.queuedMessages = [ ...messages, ...this.queuedMessages ];
           }
         },

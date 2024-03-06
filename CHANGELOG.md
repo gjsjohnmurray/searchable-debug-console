@@ -1,9 +1,7 @@
 # Change Log
 
-All notable changes to the "searchable-debug-console" extension will be documented in this file.
+## 0.0.2 [2024-03-06]
+- Use terminals instead of text editors.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+## 0.0.1 [2024-01-26]
+- Initial release.

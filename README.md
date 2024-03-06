@@ -1,6 +1,13 @@
 # Searchable Debug Console
 
-This extension replicates debug console output into an editor so it can be searched.
+This extension replicates debug console output into a read-only terminal in a dedicated group in the editor area, where it can be searched using Ctrl/Cmd + F.
+
+When output specifies an associated source reference the line number prefix allows that reference to be opened.
+
+If debugging in a workspace results in multiple sessions and you want to suppress creation of the replica for any of these sessions, add the following to the session's debug configuration:
+```json
+"searchable-debug-console.disabled": true,
+```
 
 ## About George James Software
 
