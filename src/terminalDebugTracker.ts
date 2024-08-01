@@ -11,11 +11,14 @@ export class TerminalDebugTracker implements vscode.DebugAdapterTracker {
   static ourViewColumn: vscode.ViewColumn | undefined = undefined;
   static sessionCount: number = 0;
 
-  static closeTerminals() {
-    mapTerminalDebugTrackers.forEach((_tracker, terminal) => {
+  static async closeTerminals() {
+    const promises = Array.from(mapTerminalDebugTrackers.keys()).map(async (terminal) => {
       terminal.show(false);
-      vscode.commands.executeCommand('workbench.action.terminal.killEditor');
+      await vscode.commands.executeCommand('workbench.action.terminal.killEditor');
     });
+
+    await Promise.all(promises);
+    mapTerminalDebugTrackers.clear();
   }
 
   private session: vscode.DebugSession;
