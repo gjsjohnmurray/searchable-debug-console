@@ -2,7 +2,7 @@
   "name": "searchable-debug-console",
   "displayName": "Searchable Debug Console",
   "description": "Replicate debug console output into a terminal in the editor area so it can be searched",
-  "version": "0.0.3-SNAPSHOT",
+  "version": "0.0.3",
   "publisher": "georgejames",
   "icon": "media/extension-icon.png",
   "repository": {
